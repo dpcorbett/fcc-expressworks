@@ -1,8 +1,12 @@
 var express = require('express')
+var fs = require('fs')
 var app = express()
-app.get('/search', function(req, res){
-    var query = req.query
-    delete query.__proto__;
-    res.send(JSON.stringify(query))
+app.get('/books', function(req, res){
+    fs.readFile(process.argv[3], (error, data) => {
+        if (error) {
+            console.log(error)
+        }
+        res.send(JSON.stringify(JSON.parse(data)));
+    })
 });
 app.listen(process.argv[2])
