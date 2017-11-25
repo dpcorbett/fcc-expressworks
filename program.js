@@ -1,11 +1,8 @@
 var express = require('express')
 var app = express()
-app.put('/message/:id', function(req, res){
-    var id = req.params.id
-    var responseMessage = require('crypto')
-      .createHash('sha1')
-      .update(new Date().toDateString() + id)
-      .digest('hex')
-    res.send(responseMessage)
+app.get('/search', function(req, res){
+    var query = req.query
+    delete query.__proto__;
+    res.send(JSON.stringify(query))
 });
 app.listen(process.argv[2])
